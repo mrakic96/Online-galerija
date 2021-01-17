@@ -2,11 +2,7 @@ package com.mrakks.onlinegalerija.model;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="post")
@@ -17,6 +13,8 @@ public class Post {
 	private long id;
 	private String name;
 	private String description;
+	@Lob
+	@Column(columnDefinition = "MEDUIMBLOB")
 	private String image;
 	private Date date_creation;
 		

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.mrakks.onlinegalerija.model.Post;
 import com.mrakks.onlinegalerija.repository.PostRepository;
 import com.mrakks.onlinegalerija.service.PostService;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class PostController {
@@ -36,16 +37,11 @@ public class PostController {
 		return "addPost";
 	}
 	
-	@PostMapping("/addP")
+	@PostMapping("/savePost")
 	public String savePost(@RequestParam("name") String name, 
 							@RequestParam("description") String description, 
-							@RequestParam("image") String image) {
-		Post post = new Post();
-		post.setName(name);
-		post.setDescription(description);
-		post.setImage(image);
-		post.setDate_creation(new Date());
-		postRepository.save(post);
+							@RequestParam("image") MultipartFile image) {
+		postService.savePostToDB(image, name, description, new Date());
 		return "redirect:/";
 	}
 
@@ -59,12 +55,10 @@ public class PostController {
 	public String updatePost(@RequestParam("id") Long id,
 							 @RequestParam("name") String name,
 							 @RequestParam("description") String description,
-							 @RequestParam("image") String image
+							 @RequestParam("image") MultipartFile image
 	){
 		Post post = postRepository.findById(id).get();
-		post.setName(name);
-		post.setDescription(description);
-		post.setImage(image);
+		postService.savePostToDB(image, name, description, new Date());
 		postRepository.save(post);
 		return "redirect:/";
 	}

@@ -15,23 +15,23 @@
 
     <div class="row">
         <h1>Nova objava</h1>
-        <form action="/updatePost" method="post">
+        <form action="/updatePost" method="post" enctype="multipart/form-data">
             <br>
             <div class="mb-3" hidden="hidden">
                 <label class="form-label">ID</label>
-                <input type="text" th:value="*{post.id}" class="form-control" name="id">
+                <input type="text" th:value="*{post.id}" class="form-control form-control-sm" name="id">
             </div>
             <div class="mb-3">
                 <label class="form-label">Naziv</label>
-                <input type="text" th:value="*{post.name}" class="form-control" name="name" >
+                <input type="text" th:value="*{post.name}" class="form-control form-control-sm" name="name" >
             </div>
             <div class="mb-3">
                 <label class="form-label">Opis</label>
-                <input type="text" class="form-control" th:value="*{post.description}" name="description">
+                <input type="text" class="form-control form-control-sm" th:value="*{post.description}" name="description">
             </div>
             <div class="mb-3">
-                <label class="form-label">Slika</label>
-                <input type="text" class="form-control" th:value="*{post.image}" name="image">
+                <label for="image" class="form-label">Slika</label>
+                <input type="file" class="form-control form-control-sm" th:value="*{post.image}" name="image" id="image">
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Spremi</button>

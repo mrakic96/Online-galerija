@@ -15,18 +15,18 @@
 
 	<div class="row">
 	<h1>Nova objava</h1>
-		<form action="/addP" method="post">
+		<form action="/savePost" method="post" enctype="multipart/form-data">
 		  <div class="mb-3">
 		    <label for="name" class="form-label">Naziv</label>
-		    <input type="text" class="form-control" name="name" id="name">
+		    <input type="text" class="form-control form-control-sm" name="name" id="name">
 		  </div>
 		  <div class="mb-3">
 		    <label for="description" class="form-label">Opis</label>
-		    <input type="text" class="form-control" name="description" id="description">
+		    <input type="text" class="form-control form-control-sm" name="description" id="description">
 		  </div>
 		  <div class="mb-3">
 		    <label for="image" class="form-label">Slika</label>
-		    <input type="text" class="form-control" name="image" id="image">
+		    <input type="file" class="form-control form-control-sm" name="image" id="image">
 		  </div>
 		  <br>
 		  <button type="submit" class="btn btn-primary">Spremi</button>
