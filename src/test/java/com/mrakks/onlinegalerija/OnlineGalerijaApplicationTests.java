@@ -15,10 +15,5 @@ class OnlineGalerijaApplicationTests {
 	@Autowired
 	private PostRepository postRepository;
 
-	@Test
-	void createNewPost() {
-		Post post = new Post("test", "test", new Date());
-		postRepository.save(post);
-	}
 
 }

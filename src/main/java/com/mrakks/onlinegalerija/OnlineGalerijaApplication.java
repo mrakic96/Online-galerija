@@ -9,5 +9,4 @@ public class OnlineGalerijaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OnlineGalerijaApplication.class, args);
 	}
-
 }
