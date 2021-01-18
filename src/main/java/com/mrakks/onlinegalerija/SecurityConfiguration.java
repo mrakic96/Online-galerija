@@ -19,7 +19,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .inMemoryAuthentication()
                 .withUser("admin")
                 .password(passwordEncoder().encode("password123"))
-                .roles("ADMIN").authorities("ADD_POST", "EDIT_POST")
+                .roles("ADMIN").authorities("ADD_POST", "EDIT_POST", "ROLE_ADMIN")
                 .and()
                 .withUser("user")
                 .password(passwordEncoder().encode("password123"))
