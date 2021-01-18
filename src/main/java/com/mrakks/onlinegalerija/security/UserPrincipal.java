@@ -1,4 +1,4 @@
-package com.mrakks.onlinegalerija.service;
+package com.mrakks.onlinegalerija.security;
 
 import com.mrakks.onlinegalerija.model.User;
 import com.mrakks.onlinegalerija.repository.UserRepository;

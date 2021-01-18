@@ -1,11 +1,13 @@
-package com.mrakks.onlinegalerija.service;
+package com.mrakks.onlinegalerija.security;
 
 import com.mrakks.onlinegalerija.model.User;
 import com.mrakks.onlinegalerija.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserPrincipalDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
