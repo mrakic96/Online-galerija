@@ -30,13 +30,15 @@ public class PostController {
 		model.addAttribute("listPosts", postService.getAllPosts());
 		return "index";
 	}
-	
+
+	// show add a new post view
 	@GetMapping("/addPost")
 	public String showAddPost() {
 		
 		return "addPost";
 	}
-	
+
+	// save a new post to DB
 	@PostMapping("/savePost")
 	public String savePost(@RequestParam("name") String name, 
 							@RequestParam("description") String description, 
@@ -45,12 +47,14 @@ public class PostController {
 		return "redirect:/";
 	}
 
+	// show edit post view
 	@GetMapping("/editPost/{id}")
 	public String editPost (@PathVariable("id") Long id, Model model){
 		model.addAttribute("post", postService.getPostById(id));
 		return "editPost";
 	}
 
+	// update a post in DB
 	@PostMapping("/updatePost")
 	public String updatePost(@RequestParam("id") Long id,
 							 @RequestParam("name") String name,
@@ -63,6 +67,7 @@ public class PostController {
 		return "redirect:/";
 	}
 
+	// remove a post from DB
 	@GetMapping("/deletePost/{id}")
 	public String deletePost(@PathVariable("id") Long id) {
 		
