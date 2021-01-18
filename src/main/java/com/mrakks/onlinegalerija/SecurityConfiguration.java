@@ -17,16 +17,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("password123")).roles("ADMIN")
+                .withUser("admin")
+                .password(passwordEncoder().encode("password123"))
+                .roles("ADMIN").authorities("ADD_POST", "EDIT_POST")
                 .and()
-                .withUser("user").password(passwordEncoder().encode("password123")).roles("USER");
+                .withUser("user")
+                .password(passwordEncoder().encode("password123"))
+                .roles("USER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                .antMatchers("/index.html").permitAll()
+                .antMatchers("/addPost").hasAuthority("ADD_POST")
+                .antMatchers("/editPost/{id}").hasAuthority("EDIT_POST")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
                 .httpBasic();
     }
