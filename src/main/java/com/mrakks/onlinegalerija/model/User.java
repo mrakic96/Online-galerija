@@ -32,7 +32,7 @@ public class User {
         this.active = 1;
     }
 
-    protected User() {}
+    public User() {}
 
     public long getId() {
         return id;
