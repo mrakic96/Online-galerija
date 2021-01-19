@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:insert="fragments.html :: headerfiles">
 
 </head>
@@ -14,7 +13,7 @@
         <h1>Objave</h1>
         <br>
         <div>
-            <a href="/addPost" class="btn btn-primary">Nova objava</a>
+            <a href="/addPost" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary">Nova objava</a>
         </div>
 
         <div th:each="post : ${listPosts}" class="col-md-3 col-sm-6" style="width: 18rem; margin: 50px 50px 10px 0px">
@@ -23,8 +22,8 @@
                 <div class="card-body p-4">
                     <h5 th:text="${post.name}" class="card-title"></h5>
                     <p th:text="${post.description}" class="card-text"></p>
-                    <a th:href="@{/editPost/{id}(id=${post.id})}" class="btn btn-primary">Uredi</a>
-                    <a th:href="@{/deletePost/{id}(id=${post.id})}" class="btn btn-danger">Izbriši</a>
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/editPost/{id}(id=${post.id})}" class="btn btn-primary">Uredi</a>
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/deletePost/{id}(id=${post.id})}" class="btn btn-danger">Izbriši</a>
                 </div>
             </div>
         </div>
