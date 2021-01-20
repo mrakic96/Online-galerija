@@ -32,8 +32,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/index.html").permitAll()
+                .antMatchers("/savePost").hasAuthority("ADD_POST")
                 .antMatchers("/addPost").hasAuthority("ADD_POST")
                 .antMatchers("/editPost/{id}").hasAuthority("EDIT_POST")
+                .antMatchers("/updatePost").hasAuthority("EDIT_POST")
+                .antMatchers("/deletePost").hasAuthority("ADD_POST")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
