@@ -1,11 +1,12 @@
 package com.mrakks.onlinegalerija.service;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
+import com.mrakks.onlinegalerija.model.User;
+import com.mrakks.onlinegalerija.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,10 @@ public class PostServiceImpl implements PostService{
 
 	@Autowired
 	private PostRepository postRepository;
-	
+
+	@Autowired
+	private UserRepository userRepository;
+
 	@Override
 	public List<Post> getAllPosts() {
 		
@@ -31,21 +35,38 @@ public class PostServiceImpl implements PostService{
 		return postRepository.findById(id).get();
 	}
 
-	@Override
-	public void savePostToDB(MultipartFile file, String name, String description, Date date_creation) {
-		Post post = new Post();
+	private String convertToString(MultipartFile file) {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		if(fileName.contains("..")){
 			System.out.println("Not a valid file");
 		}
 		try {
-			post.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+			return Base64.getEncoder().encodeToString(file.getBytes());
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException();
 		}
+	}
+
+	@Override
+	public void save(MultipartFile file, String name, String description, User user, Date createdAt) {
+		Post post = new Post();
+		post.setImage(convertToString(file));
 		post.setName(name);
 		post.setDescription(description);
-		post.setDate_creation(date_creation);
+		post.setUser(user);
+		post.setCreatedAt(createdAt);
+		user.addNewPost(post);
+		userRepository.save(user);
+//		postRepository.save(post);
+	}
+
+	@Override
+	public void update(long postId, MultipartFile file, String name, String description) {
+
+		Post post = postRepository.findById(postId).get();
+		post.setName(name);
+		post.setDescription(description);
+		post.setImage(convertToString(file));
 
 		postRepository.save(post);
 	}
