@@ -1,11 +1,10 @@
 package com.mrakks.onlinegalerija.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
@@ -23,6 +22,10 @@ public class User {
     private String roles = "";
 
     private String permissions = "";
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user",
+            fetch = FetchType.EAGER)
+    private Set<Post> posts = new HashSet<>();
 
     public User(String username, String password, String roles, String permissions){
         this.username = username;
@@ -96,5 +99,12 @@ public class User {
         return new ArrayList<>();
     }
 
+    public void addNewPost(Post post) {
+        this.posts.add(Objects.requireNonNull(post));
+    }
+
+    public Set<Post> getPosts() {
+        return this.posts;
+    }
 
 }
