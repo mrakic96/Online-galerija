@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments.html :: headerfiles">
+
+</head>
+
+<body>
+<div class="container" style="margin-top:75px !important;">
+    <header th:insert="fragments.html :: nav"></header>
+
+    <div class="row">
+        <br>
+        <br>
+        <h2>Objave Test</h2>
+        <br>
+        <div>
+            <a href="/addPost" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary">Nova objava</a>
+        </div>
+
+        <div th:each="post : ${listPosts}" class="col-md-2 col-sm-4" style="width: 351px; margin: 50px 50px 10px 0px">
+            <div class="card border-secondary float-left" style="width: 350px; height: 320px;">
+                <img th:src="*{'data:image/png;base64,' + {post.image}}" class="card-img-top" alt="">
+                <div class="card-body p-4">
+<!--                    <h5 th:text="${post.name}" class="card-title"></h5>-->
+<!--                    <p th:text="${post.description}" class="card-text"></p>-->
+                    <a th:href="@{/profile/{id}(id=${post.user.id})}" style="color: black; text-decoration: none;"><p th:text="${'Author: ' + {post.user.username}}"> </p></a>
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/editPost/{id}(id=${post.id})}" class="btn btn-primary">Uredi</a>
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/deletePost/{id}(id=${post.id})}" class="btn btn-danger">Izbriši</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br>
+<br>
+</body>
+</html>

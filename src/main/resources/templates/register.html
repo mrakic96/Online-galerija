@@ -18,7 +18,7 @@
         }
         .sidenav {
             height: 100%;
-            background-color: #000;
+            background-color: #a43c4c;
             overflow-x: hidden;
             padding-top: 20px;
         }
@@ -72,7 +72,7 @@
 <body>
 <div class="sidenav">
     <div>
-        <a th:href="@{/}"><button style="margin-left:12%; margin-top:5%; " class="btn btn-secondary">Nazad na početnu</button></a>
+        <a th:href="@{/home}"><button style="margin-left:12%; margin-top:5%; " class="btn btn-secondary">Nazad na početnu</button></a>
     </div>
     <div class="login-main-text">
         <h2>Online Galerija<br> Registracija</h2>
@@ -98,7 +98,7 @@
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                 </div>
                 <br>
-                <button type="submit" class="btn btn-black">Potvrdi</button>
+                <button type="submit" class="btn" style="background-color: #a43c4c; color:white;">Potvrdi</button>
                 <a th:href="@{/login}"><button type="button" class="btn btn-secondary">Već imate račun?</button></a>
             </form>
         </div>

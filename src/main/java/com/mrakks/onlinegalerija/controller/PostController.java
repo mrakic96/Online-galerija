@@ -37,10 +37,10 @@ public class PostController {
 	private UserRepository userRepository;
 
 	//	display list of posts
-	@GetMapping("/")
+	@GetMapping("/hometestt")
 	public String viewHomePage (Model model) {
 		model.addAttribute("listPosts", postService.getAllPosts());
-		return "index";
+		return "hometestt";
 	}
 
 	// show add a new post view

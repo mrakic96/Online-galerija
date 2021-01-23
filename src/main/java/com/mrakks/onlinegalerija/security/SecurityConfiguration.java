@@ -40,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
-                .loginPage("/login").permitAll()
+                .loginPage("/login").defaultSuccessUrl("/home").permitAll()
                 .and()
                 .rememberMe();
 

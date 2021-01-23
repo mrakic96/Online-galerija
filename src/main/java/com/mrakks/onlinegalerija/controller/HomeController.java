@@ -2,8 +2,12 @@ package com.mrakks.onlinegalerija.controller;
 
 import com.mrakks.onlinegalerija.model.User;
 import com.mrakks.onlinegalerija.repository.UserRepository;
+import com.mrakks.onlinegalerija.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,11 +24,34 @@ public class HomeController {
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
+    private PostService postService;
+
+    @Autowired
     private UserRepository userRepository;
+
+    //landing page
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
+
+    //home page
+    @GetMapping("/home")
+    public String home (Model model) {
+        model.addAttribute("listPosts", postService.getAllPosts());
+        return "home";
+    }
 
     //login
     @GetMapping("/login")
     public String login() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            return "redirect:/home";
+        }
+
         return "login";
     }
 
@@ -39,6 +66,6 @@ public class HomeController {
                           @RequestParam("password") String password) {
         User user = new User(username, passwordEncoder.encode(password), "USER", "");
         userRepository.save(user);
-        return "redirect:/";
+        return "redirect:/home";
     }
 }
