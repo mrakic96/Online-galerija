@@ -1,36 +1,179 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:insert="fragments.html :: headerfiles">
 
 </head>
-<body>
-<div class="container" style="margin-top:75px !important;">
-	<header th:insert="fragments.html :: nav"></header>
 
-	<div class="row">
-	<h1>Nova objava</h1>
-		<form th:action="@{/savePost}" method="post" enctype="multipart/form-data">
-		  <div class="mb-3">
-		    <label for="name" class="form-label">Naziv</label>
-		    <input type="text" class="form-control form-control-sm" name="name" id="name">
-		  </div>
-		  <div class="mb-3">
-		    <label for="description" class="form-label">Opis</label>
-		    <input type="text" class="form-control form-control-sm" name="description" id="description">
-		  </div>
-		  <div class="mb-3">
-		    <label for="image" class="form-label">Slika</label>
-		    <input type="file" class="form-control form-control-sm" name="image" id="image">
-		  </div>
-		  <br>
-		  <button type="submit" class="btn btn-primary">Spremi</button>
-		</form>
+<body>
+<div id="page-wraper">
+	<!-- Sidebar Menu -->
+	<div class="responsive-nav">
+		<i class="fa fa-bars" id="menu-toggle"></i>
+		<div id="menu" class="menu">
+			<i class="fa fa-times" id="menu-close"></i>
+			<div class="container">
+				<!--            <div class="image">-->
+				<!--              <a href="#"><img src="assets/images/oglogo.png" alt="" /></a>-->
+				<!--            </div>-->
+				<div class="author-content">
+					<h4>Online galerija</h4>
+					<!--              <span>Web Designer</span>-->
+				</div>
+				<nav class="main-nav" role="navigation">
+					<ul class="main-menu">
+						<li><a href="#section1">O nama</a></li>
+						<li><a href="#section3">Objave</a></li>
+					</ul>
+					<ul>
+						<!--                <li th:text="${#authentication}"></li>-->
+						<li><a href="#" sec:authorize="isAuthenticated()">Profil</a></li>
+						<li><a th:href="@{/{username}/posts (username = ${user.username})}" sec:authorize="isAuthenticated()">Moje objave</a></li>
+						<li><a th:href="@{/register}" sec:authorize="isAnonymous()">Registracija</a></li>
+						<li><a target="_self" th:href="@{/login}" sec:authorize="isAnonymous()">Prijava</a></li>
+						<li><hr style="margin-top:0px;"></li>
+						<li><form method="post" th:action="@{/logout}">
+							<button sec:authorize="isAuthenticated()" type="submit">Odjava</button>
+						</form></li>
+					</ul>
+				</nav>
+				<div class="social-network">
+					<ul class="social-icons">
+						<li>
+							<a target="_blank" href="https://github.com/mrakic96/online-galerija"><i class="fa fa-github"></i></a>
+						</li>
+					</ul>
+				</div>
+				<div class="copyright-text">
+					<p>Online galerija 2021</p>
+				</div>
+			</div>
+		</div>
 	</div>
-	
+
+
+	<section class="section contact-me" data-section="section4">
+		<div class="container">
+			<div class="section-heading">
+				<h2>Dodaj novu objavu</h2>
+				<div class="line-dec"></div>
+			</div>
+			<div class="row">
+				<div class="right-content">
+					<div class="container">
+						<form id="contact" th:action="@{/savePost}" method="post" enctype="multipart/form-data">
+							<div class="row">
+								<div class="col-md-12">
+									<fieldset>
+										<input
+												name="name"
+												type="text"
+												class="form-control"
+												id="name"
+												placeholder="Naziv objave..."
+												required="required"
+										/>
+									</fieldset>
+								</div>
+								<div class="col-md-12">
+									<fieldset>
+										<textarea
+												name="description"
+												rows="6"
+												class="form-control"
+												id="description"
+												placeholder="Opis objave..."
+												required="required"
+										></textarea>
+									</fieldset>
+								</div>
+								<div class="col-md-12">
+									<fieldset>
+										<input
+												style="height: 54px;"
+												name="image"
+												type="file"
+												class="form-control"
+												id="image"
+												placeholder="Slika objave..."
+												required="required"
+										/>
+									</fieldset>
+								</div>
+								<div class="col-md-12">
+									<fieldset>
+										<button type="submit" id="form-submit" class="button">
+											Spremi
+										</button>
+									</fieldset>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </div>
-<br>
-<br>
+
+<!-- Scripts -->
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script src="assets/js/isotope.min.js"></script>
+<script src="assets/js/owl-carousel.js"></script>
+<script src="assets/js/lightbox.js"></script>
+<script src="assets/js/custom.js"></script>
+<script>
+	//according to loftblog tut
+	$(".main-menu li:first").addClass("active");
+
+	var showSection = function showSection(section, isAnimate) {
+		var direction = section.replace(/#/, ""),
+				reqSection = $(".section").filter(
+						'[data-section="' + direction + '"]'
+				),
+				reqSectionPos = reqSection.offset().top - 0;
+
+		if (isAnimate) {
+			$("body, html").animate(
+					{
+						scrollTop: reqSectionPos
+					},
+					800
+			);
+		} else {
+			$("body, html").scrollTop(reqSectionPos);
+		}
+	};
+
+	var checkSection = function checkSection() {
+		$(".section").each(function() {
+			var $this = $(this),
+					topEdge = $this.offset().top - 80,
+					bottomEdge = topEdge + $this.height(),
+					wScroll = $(window).scrollTop();
+			if (topEdge < wScroll && bottomEdge > wScroll) {
+				var currentId = $this.data("section"),
+						reqLink = $("a").filter("[href*=\\#" + currentId + "]");
+				reqLink
+						.closest("li")
+						.addClass("active")
+						.siblings()
+						.removeClass("active");
+			}
+		});
+	};
+
+	$(".main-menu").on("click", "a", function(e) {
+		e.preventDefault();
+		showSection($(this).attr("href"), true);
+	});
+
+	$(window).scroll(function() {
+		checkSection();
+	});
+</script>
 </body>
 </html>

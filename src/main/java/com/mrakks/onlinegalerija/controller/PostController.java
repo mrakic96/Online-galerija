@@ -1,6 +1,8 @@
 package com.mrakks.onlinegalerija.controller;
 
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 
 import com.mrakks.onlinegalerija.model.User;
@@ -60,8 +62,16 @@ public class PostController {
 
 	// show add a new post view
 	@GetMapping("/addPost")
-	public String showAddPost() {
-		
+	public String showAddPost(Model model, Authentication auth) {
+		// User currently logged in
+		if (auth != null) {
+			UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
+			User user = userPrincipal.getUser();
+//                String username = user.getUsername();
+			model.addAttribute("user", user);
+		} else {
+			model.addAttribute("user", new User());
+		}
 		return "addPost";
 	}
 
@@ -75,12 +85,18 @@ public class PostController {
 		UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
 		User user = userPrincipal.getUser();
 		postService.save(image, name, description, user, new Date());
-		return "redirect:/";
+		return "redirect:/home";
 	}
 
 	// show edit post view
 	@GetMapping("/editPost/{id}")
-	public String editPost (@PathVariable("id") Long id, Model model){
+	public String editPost (@PathVariable("id") Long id, Model model, Authentication auth){
+
+		// Get logged in user
+		UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
+		User user = userPrincipal.getUser();
+
+		model.addAttribute("user", user);
 		model.addAttribute("post", postService.getPostById(id));
 		return "editPost";
 	}
@@ -94,7 +110,7 @@ public class PostController {
 //		get? -> exception handler -- orElseThrow()
 		Post post = postRepository.findById(id).get();
 		postService.update(post.getId(), image, name, description);
-		return "redirect:/";
+		return "redirect:/home";
 	}
 
 	// remove a post from DB

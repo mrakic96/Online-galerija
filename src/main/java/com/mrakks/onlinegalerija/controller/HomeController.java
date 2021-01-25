@@ -87,7 +87,7 @@ public class HomeController {
     @PostMapping("/newUser")
     public String newUser(@RequestParam("username") String username,
                           @RequestParam("password") String password) {
-        User user = new User(username, passwordEncoder.encode(password), "USER", "");
+        User user = new User(username, passwordEncoder.encode(password), "USER", "ADD_POST,EDIT_POST");
         userRepository.save(user);
         return "redirect:/login";
     }
