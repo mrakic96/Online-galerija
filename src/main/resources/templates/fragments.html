@@ -2,18 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="headerfiles">
-    <meta charset="UTF-8">
-    <title>Online galerija</title>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link
+            href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
+            rel="stylesheet"
+    />
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <title>Online galerija - Home</title>
+    <!--
+    Reflux Template
+    https://templatemo.com/tm-531-reflux
+    -->
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!-- Additional CSS Files -->
+    <link type="text/css" rel="stylesheet" th:href="@{http://localhost:8080/assets/css/fontawesome.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{http://localhost:8080/assets/css/templatemo-style.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{http://localhost:8080/assets/css/owl.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{http://localhost:8080/assets/css/lightbox.css}" />
 </head>
 <body>
 

@@ -12,10 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.mrakks.onlinegalerija.model.Post;
 import com.mrakks.onlinegalerija.repository.PostRepository;
@@ -41,6 +38,15 @@ public class PostController {
 	public String viewHomePage (Model model) {
 		model.addAttribute("listPosts", postService.getAllPosts());
 		return "hometestt";
+	}
+
+	//Display a single post
+	@GetMapping("/post/{id}")
+	public String post (Model model, @PathVariable("id") Long id) {
+
+		//find post by Id
+		model.addAttribute("post", postService.getPostById(id));
+		return "post";
 	}
 
 	// show add a new post view
@@ -95,6 +101,13 @@ public class PostController {
 
 		model.addAttribute("user", userRepository.findById(userId).get());
 		return "/profile";
+	}
+
+	@GetMapping("/{username}/posts")
+	public String profile(Model model, @PathVariable("username") String username) {
+
+		model.addAttribute("user", userRepository.findByUsername(username));
+		return "/posts";
 	}
 	
 }

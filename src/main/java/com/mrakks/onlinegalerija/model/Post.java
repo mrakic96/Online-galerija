@@ -1,6 +1,8 @@
 package com.mrakks.onlinegalerija.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -80,10 +82,5 @@ public class Post {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-//	public void setUserId(long id) {
-//		??
-//	}
-
 	
 }

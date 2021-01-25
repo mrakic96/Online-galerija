@@ -1,33 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
-      rel="stylesheet"
-    />
+<head th:insert="fragments.html :: headerfiles">
 
-    <title>Online galerija - Home</title>
-<!--
-Reflux Template
-https://templatemo.com/tm-531-reflux
--->
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css" />
-    <link rel="stylesheet" href="assets/css/templatemo-style.css" />
-    <link rel="stylesheet" href="assets/css/owl.css" />
-    <link rel="stylesheet" href="assets/css/lightbox.css" />
-  </head>
+</head>
 
   <body>
     <div id="page-wraper">
@@ -52,7 +28,6 @@ https://templatemo.com/tm-531-reflux
               <ul>
                 <li><a href="#" sec:authorize="isAuthenticated()">Profil</a></li>
                 <li><a href="#" sec:authorize="isAuthenticated()">Moje objave</a></li>
-
                 <li><a th:href="@{/register}" sec:authorize="isAnonymous()">Registracija</a></li>
                 <li><a target="_self" th:href="@{/login}" sec:authorize="isAnonymous()">Prijava</a></li>
                 <li><hr style="margin-top:0px;"></li>
@@ -141,9 +116,9 @@ https://templatemo.com/tm-531-reflux
               <div class="isotope-box">
                 <div th:each="post : ${listPosts}" class="isotope-item" data-type="nature">
                   <figure class="snip1321">
-                    <img th:src="*{'data:image/png;base64,' + {post.image}}"
+                    <a th:href="@{/post/{id}(id=${post.id})}"><img th:src="*{'data:image/png;base64,' + {post.image}}"
                       alt="sq-sample26"
-                    />
+                    /></a>
                     <figcaption>
                       <a th:href="*{'data:image/png;base64,' + {post.image}}"
                         data-lightbox="image-1"
@@ -154,6 +129,7 @@ https://templatemo.com/tm-531-reflux
                       <span th:text="${post.description}"></span>
                     </figcaption>
                   </figure>
+                  <a style="color: white" th:href="@{/post/{id}(id=${post.id})}"><h5 th:text="${post.name}"></h5></a>
                 </div>
               </div>
             </div>

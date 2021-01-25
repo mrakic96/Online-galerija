@@ -42,7 +42,7 @@
                 margin-left: 40%;
             }
             .sidenav{
-                width: 40%;
+                width:35%;
                 position: fixed;
                 z-index: 1;
                 top: 0;
@@ -72,7 +72,7 @@
 <body>
 <div class="sidenav">
     <div>
-        <a th:href="@{/home}"><button style="margin-left:12%; margin-top:5%; " class="btn btn-secondary">Nazad na početnu</button></a>
+        <a th:href="@{/home}"><button style="margin-left:12%; margin-top:5%; background-color: white; color:#a43c4c; border:1px solid #a43c4c;" class="btn btn-secondary">Nazad na početnu</button></a>
     </div>
     <div class="login-main-text">
         <h2>Online Galerija<br> Registracija</h2>
@@ -90,16 +90,16 @@
                     Uspješno ste se odjavili.
                 </div>
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                    <label for="username" style="color:#a43c4c;">Username</label>
+                    <input style="color:#a43c4c; border:1px solid #a43c4c" type="text" class="form-control" id="username" name="username" placeholder="Username">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    <label for="password" style="color:#a43c4c;">Password</label>
+                    <input style="color:#a43c4c; border:1px solid #a43c4c" type="password" class="form-control" id="password" name="password" placeholder="Password">
                 </div>
                 <br>
                 <button type="submit" class="btn" style="background-color: #a43c4c; color:white;">Potvrdi</button>
-                <a th:href="@{/login}"><button type="button" class="btn btn-secondary">Već imate račun?</button></a>
+                <a th:href="@{/login}"><button type="button" class="btn btn-secondary" style="background-color: white; color:#a43c4c; border:1px solid #a43c4c">Već imate račun?</button></a>
             </form>
         </div>
     </div>
