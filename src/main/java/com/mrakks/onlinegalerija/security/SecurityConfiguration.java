@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/index.html", "/post/{id}", "/assets/**").permitAll()
+                .antMatchers("/home","/{username}/posts", "/index.html", "/post/{id}", "/assets/**").permitAll()
                 .antMatchers("/savePost").hasAuthority("ADD_POST")
                 .antMatchers("/addPost").hasAuthority("ADD_POST")
                 .antMatchers("/editPost/{id}").hasAuthority("EDIT_POST")

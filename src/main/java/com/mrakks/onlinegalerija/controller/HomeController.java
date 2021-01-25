@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.security.Principal;
 
 @Controller
 public class HomeController {
@@ -45,10 +49,16 @@ public class HomeController {
     @GetMapping("/home")
     public String home (Model model, Authentication auth) {
 
-//        UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
-//        User user = userPrincipal.getUser();
-//
-//        model.addAttribute("user", user);
+            // User currently logged in
+            if (auth != null) {
+                UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
+                User user = userPrincipal.getUser();
+//                String username = user.getUsername();
+                model.addAttribute("user", user);
+            } else {
+                model.addAttribute("user", new User());
+            }
+
         model.addAttribute("listPosts", postService.getAllPosts());
 
         return "home";

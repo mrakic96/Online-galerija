@@ -42,8 +42,17 @@ public class PostController {
 
 	//Display a single post
 	@GetMapping("/post/{id}")
-	public String post (Model model, @PathVariable("id") Long id) {
+	public String post (Model model, @PathVariable("id") Long id, Authentication auth) {
 
+		// User currently logged in
+		if (auth != null) {
+			UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
+			User user = userPrincipal.getUser();
+//                String username = user.getUsername();
+			model.addAttribute("user", user);
+		} else {
+			model.addAttribute("user", new User());
+		}
 		//find post by Id
 		model.addAttribute("post", postService.getPostById(id));
 		return "post";
@@ -104,7 +113,17 @@ public class PostController {
 	}
 
 	@GetMapping("/{username}/posts")
-	public String profile(Model model, @PathVariable("username") String username) {
+	public String profile(Model model, @PathVariable("username") String username, Authentication auth) {
+
+		// User currently logged in
+		if (auth != null) {
+			UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
+			User user = userPrincipal.getUser();
+//                String username = user.getUsername();
+			model.addAttribute("loggeduser", user);
+		} else {
+			model.addAttribute("loggeduser", new User());
+		}
 
 		model.addAttribute("user", userRepository.findByUsername(username));
 		return "/posts";

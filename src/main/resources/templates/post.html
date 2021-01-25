@@ -51,7 +51,7 @@
                     </ul>
                     <ul>
                         <li><a href="#" sec:authorize="isAuthenticated()">Profil</a></li>
-                        <li><a href="#" sec:authorize="isAuthenticated()">Moje objave</a></li>
+                        <li><a th:href="@{/{username}/posts (username = ${user.username})}" sec:authorize="isAuthenticated()">Moje objave</a></li>
 
                         <li><a th:href="@{/register}" sec:authorize="isAnonymous()">Registracija</a></li>
                         <li><a target="_self" th:href="@{/login}" sec:authorize="isAnonymous()">Prijava</a></li>
