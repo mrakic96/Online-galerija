@@ -32,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/home","/{username}/posts", "/index.html", "/post/{id}", "/assets/**").permitAll()
-                .antMatchers("/savePost").hasAuthority("ADD_POST")
+                .antMatchers("/savePost", "/profile").hasAuthority("ADD_POST")
                 .antMatchers("/addPost").hasAuthority("ADD_POST")
                 .antMatchers("/editPost/{id}").hasAuthority("EDIT_POST")
                 .antMatchers("/updatePost").hasAuthority("EDIT_POST")
@@ -42,9 +42,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login").defaultSuccessUrl("/home").permitAll()
                 .and()
-                .rememberMe();
+                .rememberMe()
 
-            //  .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+        .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
     }
 
     @Bean

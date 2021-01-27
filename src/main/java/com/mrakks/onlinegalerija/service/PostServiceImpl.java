@@ -7,7 +7,9 @@ import java.util.List;
 
 import com.mrakks.onlinegalerija.model.User;
 import com.mrakks.onlinegalerija.repository.UserRepository;
+import com.mrakks.onlinegalerija.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.mrakks.onlinegalerija.model.Post;
@@ -71,5 +73,9 @@ public class PostServiceImpl implements PostService{
 		postRepository.save(post);
 	}
 
-
+	@Override
+	public void delete(User user, Post post) {
+		user.deleteAPost(post);
+		userRepository.save(user);
+	}
 }

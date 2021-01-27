@@ -21,13 +21,13 @@
 					<!--              <span>Web Designer</span>-->
 				</div>
 				<nav class="main-nav" role="navigation">
-					<ul class="main-menu">
-						<li><a href="#section1">O nama</a></li>
-						<li><a href="#section3">Objave</a></li>
+					<ul>
+						<li><a th:href="@{/home}">O nama</a></li>
+						<li><a th:href="@{/home}">Objave</a></li>
 					</ul>
 					<ul>
 						<!--                <li th:text="${#authentication}"></li>-->
-						<li><a href="#" sec:authorize="isAuthenticated()">Profil</a></li>
+						<li><a th:href="@{/profile}" sec:authorize="isAuthenticated()">Profil</a></li>
 						<li><a th:href="@{/{username}/posts (username = ${user.username})}" sec:authorize="isAuthenticated()">Moje objave</a></li>
 						<li><a th:href="@{/register}" sec:authorize="isAnonymous()">Registracija</a></li>
 						<li><a target="_self" th:href="@{/login}" sec:authorize="isAnonymous()">Prijava</a></li>

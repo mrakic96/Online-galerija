@@ -1,6 +1,7 @@
 package com.mrakks.onlinegalerija.model;
 
 import javax.persistence.*;
+import javax.swing.text.html.Option;
 import java.util.*;
 
 @Entity
@@ -17,7 +18,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    private int active;
+    private boolean active;
 
     private String roles = "";
 
@@ -32,10 +33,18 @@ public class User {
         this.password = password;
         this.roles = roles;
         this.permissions = permissions;
-        this.active = 1;
+        this.active = true;
     }
 
     public User() {}
+
+    public User(long id, String username, String password, String roles, String permissions) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+        this.permissions = permissions;
+    }
 
     public long getId() {
         return id;
@@ -61,11 +70,11 @@ public class User {
         this.password = password;
     }
 
-    public int getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
@@ -103,8 +112,35 @@ public class User {
         this.posts.add(Objects.requireNonNull(post));
     }
 
+    public Post getPost (Post post, Set<Post> set){
+        if(set.contains(post)) {
+            for (Post p : set) {
+                if (p.equals(post)){
+                    return p;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void deleteAPost(Post post) {
+        this.posts.remove(post);
+    }
+
     public Set<Post> getPosts() {
         return this.posts;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && active == user.active && username.equals(user.username) && password.equals(user.password) && Objects.equals(roles, user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, active, roles, permissions);
+    }
 }

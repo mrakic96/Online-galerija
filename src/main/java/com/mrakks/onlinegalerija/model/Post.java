@@ -2,6 +2,7 @@ package com.mrakks.onlinegalerija.model;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -34,8 +35,8 @@ public class Post {
 	}
 	
 	public Post(String name, String description, String image, User user, Date date_creation) {
-		super();
-		this.name = name;
+
+		this.name = Objects.requireNonNull(name, "Null value passed - name.");
 		this.description = description;
 		this.image = image;
 		this.user = user;
@@ -82,5 +83,17 @@ public class Post {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Post post = (Post) o;
+		return id == post.id && name.equals(post.name) && description.equals(post.description) && Objects.equals(image, post.image) && Objects.equals(createdAt, post.createdAt) && user.equals(post.user);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, description, image, createdAt, user);
+	}
 }

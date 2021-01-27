@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.mrakks.onlinegalerija.model.Post;
 
+import java.util.Optional;
+
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long>{
 

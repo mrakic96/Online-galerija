@@ -1,9 +1,7 @@
 package com.mrakks.onlinegalerija.controller;
 
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Date;
+import java.util.*;
 
 import com.mrakks.onlinegalerija.model.User;
 import com.mrakks.onlinegalerija.repository.UserRepository;
@@ -13,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -114,22 +113,20 @@ public class PostController {
 	}
 
 	// remove a post from DB
-	@GetMapping("/deletePost/{id}")
-	public String deletePost(@PathVariable("id") Long id) {
-		
-		postRepository.deleteById(id);
-		return "redirect:/";
+	@DeleteMapping("/deletePost/{id}")
+	public String deletePost(@PathVariable("id") Long id, Authentication auth) {
+		UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
+		User user = userPrincipal.getUser();
+		Post post = postRepository.findById(id).get();
+//		Post post = user.getPost(postRepository.findById(id).get(), user.getPosts());
+		postService.delete(user, post);
+		Set<Post> posts= user.getPosts();
+		return "redirect:/home";
 	}
 
-	@GetMapping("/profile/{id}")
-	public String profile(Model model, @PathVariable("id") Long userId) {
-
-		model.addAttribute("user", userRepository.findById(userId).get());
-		return "/profile";
-	}
 
 	@GetMapping("/{username}/posts")
-	public String profile(Model model, @PathVariable("username") String username, Authentication auth) {
+	public String posts(Model model, @PathVariable("username") String username, Authentication auth) {
 
 		// User currently logged in
 		if (auth != null) {
