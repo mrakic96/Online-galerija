@@ -36,7 +36,7 @@ public class Post {
 	
 	public Post(String name, String description, String image, User user, Date date_creation) {
 
-		this.name = Objects.requireNonNull(name, "Null value passed - name.");
+		this.name = this.name;
 		this.description = description;
 		this.image = image;
 		this.user = user;

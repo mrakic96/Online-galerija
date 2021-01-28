@@ -83,13 +83,24 @@
                                 </figcaption>
                             </figure>
                             <a style="color: white;" th:href="@{/post/{id}(id=${post.id})}"><h5 th:text="${post.name}"></h5></a>
-                            <div th:if="${loggeduser.id == user.id}" class="white-button">
-                                <span><br></span>
-                                <a th:href="@{/editPost/{id}(id=${post.id})}" sec:authorize="hasAuthority('EDIT_POST')">Uredi</a>
-                                <form th:action="@{/deletePost/{id} (id = ${post.getId()})}" th:method="delete" sec:authorize="hasAuthority('ADD_POST')">
-                                    <button type="submit">Izbriši</button>
-                                </form>
+
+                            <div class="row">
+                                <div class="col-md-3 justify-content-center">
+                                    <div th:if="${loggeduser.id == user.id}" class="white-button">
+                                        <span><br></span>
+                                        <a th:href="@{/editPost/{id}(id=${post.id})}" sec:authorize="hasAuthority('EDIT_POST')">Uredi</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 justify-content-center">
+                                    <div th:if="${loggeduser.id == user.id}" class="white-button">
+                                        <span><br></span>
+                                        <form th:action="@{/deletePost/{id} (id = ${post.id})}" th:method="delete" sec:authorize="hasAuthority('ADD_POST')">
+                                            <button type="submit" style="height: 42px; font-size: 13px;">Izbriši</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

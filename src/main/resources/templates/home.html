@@ -51,7 +51,7 @@
         </div>
       </div>
 
-      <section class="section about-me" data-section="section1">
+      <section class="section about-me" data-section="section1" sec:authorize="isAnonymous()">
         <div class="container">
           <div class="section-heading">
             <h2>O nama</h2>
@@ -80,27 +80,27 @@
               </div>
             </div>
           </div>
-          <div class="right-image-post">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="left-text">
-                  <h4>Novo na stranici</h4>
-                  <p>
-                    Dodali smo komentare! <br>
-                    Prijavite se i ostavite vaše dojmove na nečijoj objavi.
-                  </p>
-                  <div class="white-button">
-                    <a th:href="@{/login}">Prijava</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="right-image">
-                  <img src="assets/images/right-image.jpg" alt="" />
-                </div>
-              </div>
-            </div>
-          </div>
+<!--          <div class="right-image-post">-->
+<!--            <div class="row">-->
+<!--              <div class="col-md-6">-->
+<!--                <div class="left-text">-->
+<!--                  <h4>Novo na stranici</h4>-->
+<!--                  <p>-->
+<!--                    Dodali smo komentare! <br>-->
+<!--                    Prijavite se i ostavite vaše dojmove na nečijoj objavi.-->
+<!--                  </p>-->
+<!--                  <div class="white-button">-->
+<!--                    <a th:href="@{/login}">Prijava</a>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-md-6">-->
+<!--                <div class="right-image">-->
+<!--                  <img src="assets/images/right-image.jpg" alt="" />-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
       </section>
 
